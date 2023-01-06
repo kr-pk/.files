@@ -1,0 +1,22 @@
+# Extra Key Configs
+
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+	pamixer -{i,d,t} 2; kill -34 $(cat ~/.cache/pidofbar)
+
+XF86Audio{Prev,Next}
+	mpc {seek -10,seek +10}
+
+XF86Audio{Play,Pause}
+	mpc toggle
+
+XF86Search
+	dmenu_run
+
+XF86MonBrightness{Up,Down}
+	brightnessctl s {+2%,2%-}
+
+super + Escape
+	system
+
+super + Print
+	maim | tee ~/pics/shots/$(date +%s).jpg | xclip -sel c -t image/jpg

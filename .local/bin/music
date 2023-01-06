@@ -1,0 +1,22 @@
+#!/bin/sh
+
+status=$(mpc status | grep playing)
+mzk=$(mpc current | cut -b 1-30)
+timegoing=$(mpc status | sed -n '1!p' | sed -n '2!p' | awk '{print $3}' | awk -F '\\/' '{print $1}')
+timetotal=$(mpc status | sed -n '1!p' | sed -n '2!p' | awk '{print $3}' | awk -F '\\/' '{print $2}')
+
+notification() {
+	case $timegoing in
+		'0:01')
+			notify-send "Now Playing 🎶" "$(mpc current)"
+			break;;
+	esac
+}
+
+if [ -n "$status" ]
+then
+	notification
+	printf "[🎵 $mzk|$timegoing/$timetotal]"
+else
+	printf "[⏸ $mzk|$timegoing/$timetotal]"
+fi
